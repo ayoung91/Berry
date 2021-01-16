@@ -1,6 +1,7 @@
 import os
-import time
-from SenseHat_Clear import ClearSenseHat 
+from time import sleep
+from SenseHat_Clear import ClearSenseHat
+from SenseHat_DrawUtility import showSnowFlake, showFire, showSmile, showThinkingAnimation
 from sense_hat import SenseHat
 
 def get_cpu_temp():
@@ -8,45 +9,11 @@ def get_cpu_temp():
   t = float(res.replace("temp=","").replace("'C\n",""))
   return(t)
 
-def showSnowFlake():
-    X = [0, 0, 255]  # Blue
-    O = [255, 255, 255]  # White
-
-    question_mark = [
-    X, X, X, O, O, X, X, X,
-    X, O, X, O, O, X, O, X,
-    X, X, O, X, X, O, X, X,
-    O, O, X, O, O, X, O, O,
-    O, O, X, O, O, X, O, O,
-    X, X, O, X, X, O, X, X,
-    X, O, X, O, O, X, O, X,
-    X, X, X, O, O, X, X, X
-    ]
-
-    _sense.set_pixels(question_mark)
-    
-def showFire():
-    X = [255, 0, 0]  # Red
-    Y = [255, 165, 0] # Yellow
-    O = [255, 255, 255]  # White
-
-    question_mark = [
-    O, O, O, O, X, O, O, O,
-    O, O, O, X, X, O, O, O,
-    O, O, X, Y, X, O, O, O,
-    O, X, Y, Y, Y, X, O, O,
-    O, X, Y, Y, Y, Y, X, O,
-    O, X, Y, Y, Y, Y, X, O,
-    O, O, X, Y, Y, X, O, O,
-    O, O, O, X, X, O, O, O,
-    ]
-
-    _sense.set_pixels(question_mark)
-
 _sense = SenseHat()
 _temp = 0
+_timeToCalculate = 5
 
-time.sleep(5)
+showThinkingAnimation(_timeToCalculate)
 t = _sense.get_temperature_from_humidity()
 t_cpu = get_cpu_temp()
 h = _sense.get_humidity()
@@ -61,6 +28,8 @@ if (_temp < 32):
     showSnowFlake()
 elif (_temp > 90):
     showFire()
+else:
+    showSmile()
     
-time.sleep(5)
+sleep(5)
 ClearSenseHat()
