@@ -232,29 +232,30 @@ def isScratch():
     else:
         return False
 
-reset()
-try:
-    while True:
-        for stick in _sense.stick.get_events():
-            if stick.direction == "middle" and stick.action == "pressed":
-                if (_previousSpot != _colClear):
-                    blinkRapid(_x, _y)
-                else:
-                    setTurn()
-                    if isGameOver():
-                        reset()
+def RunTicTacToe():
+    reset()
+    try:
+        while True:
+            for stick in _sense.stick.get_events():
+                if stick.direction == "middle" and stick.action == "pressed":
+                    if (_previousSpot != _colClear):
+                        blinkRapid(_x, _y)
                     else:
-                        _previousSpot = _sense.get_pixel(_defaultX, _defaultY)
-                        setCoordinates(_defaultX, _defaultY, _player)
-            elif stick.direction == "left" and stick.action == "pressed":   
-                _x = moveLeft(_x, _y)
-            elif stick.direction == "up" and stick.action == "pressed":
-                _y = moveUp(_x, _y)
-            elif stick.direction == "right" and stick.action == "pressed":
-                _x = moveRight(_x, _y)
-            elif stick.direction == "down" and stick.action == "pressed":
-                _y = moveDown(_x, _y)
-                
-except KeyboardInterrupt:
-    ClearSenseHat()
-    pass
+                        setTurn()
+                        if isGameOver():
+                            reset()
+                        else:
+                            _previousSpot = _sense.get_pixel(_defaultX, _defaultY)
+                            setCoordinates(_defaultX, _defaultY, _player)
+                elif stick.direction == "left" and stick.action == "pressed":   
+                    _x = moveLeft(_x, _y)
+                elif stick.direction == "up" and stick.action == "pressed":
+                    _y = moveUp(_x, _y)
+                elif stick.direction == "right" and stick.action == "pressed":
+                    _x = moveRight(_x, _y)
+                elif stick.direction == "down" and stick.action == "pressed":
+                    _y = moveDown(_x, _y)
+                    
+    except KeyboardInterrupt:
+        ClearSenseHat()
+        pass
