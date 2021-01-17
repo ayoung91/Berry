@@ -1,7 +1,7 @@
 import os
 from time import sleep
 from SenseHat_Clear import ClearSenseHat
-from SenseHat_DrawUtility import showSnowFlake, showFire, showSmile, showThinkingAnimation
+from SenseHat_DrawUtility import ShowSnowFlake, ShowFire, ShowSmile, ShowThinkingAnimation
 from sense_hat import SenseHat
 
 def get_cpu_temp():
@@ -14,7 +14,7 @@ _temp = 0
 _timeToCalculate = 5
 
 def GetTemperature():
-    showThinkingAnimation(_timeToCalculate)
+    ShowThinkingAnimation(_timeToCalculate)
     t = _sense.get_temperature_from_humidity()
     t_cpu = get_cpu_temp()
     h = _sense.get_humidity()
@@ -26,11 +26,11 @@ def GetTemperature():
     print(_temp)
       
     if (_temp < 32):
-        showSnowFlake()
+        ShowSnowFlake()
     elif (_temp > 90):
-        showFire()
+        ShowFire()
     else:
-        showSmile()
+        ShowSmile()
         
     sleep(5)
     ClearSenseHat()

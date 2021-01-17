@@ -15,6 +15,7 @@ _x = _defaultX
 _y = _defaultY
 _player = 1
 _previousSpot = _colClear
+_gameCount = 0
 
 def reset():
     global _previousSpot
@@ -150,7 +151,7 @@ def setTurn():
     global _player
     global _x
     global _y
-    
+
     if _player == 1:
         _player = _player + 1
     elif _player == 2:       
@@ -233,29 +234,31 @@ def isScratch():
         return False
 
 def RunTicTacToe():
+    global _gameCount
+    global _x
+    global _y
+    global _previousSpot
+    
+    print("reset")
     reset()
-    try:
-        while True:
-            for stick in _sense.stick.get_events():
-                if stick.direction == "middle" and stick.action == "pressed":
-                    if (_previousSpot != _colClear):
-                        blinkRapid(_x, _y)
+    while True:
+        for stick in _sense.stick.get_events():
+            if stick.direction == "middle" and stick.action == "pressed":
+                if (_previousSpot != _colClear):
+                    blinkRapid(_x, _y)
+                else:
+                    setTurn()
+                    if isGameOver():
+                        _gameCount = _gameCount + 1
+                        reset()
                     else:
-                        setTurn()
-                        if isGameOver():
-                            reset()
-                        else:
-                            _previousSpot = _sense.get_pixel(_defaultX, _defaultY)
-                            setCoordinates(_defaultX, _defaultY, _player)
-                elif stick.direction == "left" and stick.action == "pressed":   
-                    _x = moveLeft(_x, _y)
-                elif stick.direction == "up" and stick.action == "pressed":
-                    _y = moveUp(_x, _y)
-                elif stick.direction == "right" and stick.action == "pressed":
-                    _x = moveRight(_x, _y)
-                elif stick.direction == "down" and stick.action == "pressed":
-                    _y = moveDown(_x, _y)
-                    
-    except KeyboardInterrupt:
-        ClearSenseHat()
-        pass
+                        _previousSpot = _sense.get_pixel(_defaultX, _defaultY)
+                        setCoordinates(_defaultX, _defaultY, _player)
+            elif stick.direction == "left" and stick.action == "pressed":   
+                _x = moveLeft(_x, _y)
+            elif stick.direction == "up" and stick.action == "pressed":
+                _y = moveUp(_x, _y)
+            elif stick.direction == "right" and stick.action == "pressed":
+                _x = moveRight(_x, _y)
+            elif stick.direction == "down" and stick.action == "pressed":
+                _y = moveDown(_x, _y)

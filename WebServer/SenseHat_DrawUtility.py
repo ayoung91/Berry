@@ -2,7 +2,7 @@ from time import sleep, time
 from sense_hat import SenseHat
 _sense = SenseHat()
 
-def showSnowFlake():
+def ShowSnowFlake():
     X = [0, 0, 255]  # Blue
     O = [255, 255, 255]  # White
 
@@ -19,7 +19,7 @@ def showSnowFlake():
     
     _sense.set_pixels(snowFlake)
     
-def showFire():
+def ShowFire():
     X = [255, 0, 0]  # Red
     Y = [255, 165, 0] # Yellow
     O = [255, 255, 255]  # White
@@ -37,7 +37,7 @@ def showFire():
 
     _sense.set_pixels(fire)
     
-def showSmile():
+def ShowSmile():
     X = [0, 0, 0]  # Clear
     Y = [255, 165, 0] # Yellow
     O = [255, 255, 255]  # White
@@ -55,7 +55,7 @@ def showSmile():
 
     _sense.set_pixels(smile)
     
-def showThinkingAnimation(seconds):
+def ShowThinkingAnimation(seconds):
     X = [255, 0, 0]  # Red
     O = [255, 255, 255]  # White
 
@@ -82,3 +82,25 @@ def showThinkingAnimation(seconds):
             _sense.set_rotation(rotation)
     
     _sense.set_rotation(0)
+
+def ShowShutdownAnimation():
+    X = [255, 0, 0]  # Red
+    O = [255, 255, 255]  # White
+
+    x = [
+    X, O, O, O, O, O, O, X,
+    O, X, O, O, O, O, X, O,
+    O, O, X, O, O, X, O, O,
+    O, O, O, X, X, O, O, O,
+    O, O, O, X, X, O, O, O,
+    O, O, X, O, O, X, O, O,
+    O, X, O, O, O, O, X, O,
+    X, O, O, O, O, O, O, X,
+    ]
+    _sense.set_pixels(x)
+    
+    for i in range(5):
+        sleep(0.2)
+        _sense.set_pixels(x)        
+        sleep(0.2)
+        _sense.clear()
