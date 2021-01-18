@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-   <head>
+    <head>
       <title>{{ title }}</title>
-   </head>
-   <body>
-      <h1>Hi, I'm Berry!</h1>
-      <p>Here are all the things we can to together:<p>
-      <p><a href="/tictactoe" class="button">Tic Tac Toe</a></p>
-      <p><a href="/gettemperature" class="button">Get Temperature</a></p>
-      <p><a href="/shutdown" class="button">Shutdown</a></p>
-   </body>
+    </head>
+    <body>
+        <h1>Hi, I'm Berry!</h1>
+        <p>Here are all the things we can to together:<p>
+        <p>Tic Tac Toe</p>
+        <form action="/tictactoe" method = "POST">
+            <label>Number of games: </label>
+            <input type = "number" name="numGames">
+            <input type="submit" value="Start">
+        </form>
+        <p><a href="/gettemperature">Get Temperature</a></p>
+        <p><a href="/shutdown">Shutdown</a></p>
+    </body>
 </html>

@@ -15,7 +15,6 @@ _x = _defaultX
 _y = _defaultY
 _player = 1
 _previousSpot = _colClear
-_gameCount = 0
 
 def reset():
     global _previousSpot
@@ -232,16 +231,16 @@ def isScratch():
         return True
     else:
         return False
-
-def RunTicTacToe():
-    global _gameCount
+def RunTicTacToe(numGames):
+    global _previousSpot
     global _x
     global _y
-    global _previousSpot
     
-    print("reset")
+    gameCount = 0
     reset()
     while True:
+        if gameCount >= numGames:
+            break
         for stick in _sense.stick.get_events():
             if stick.direction == "middle" and stick.action == "pressed":
                 if (_previousSpot != _colClear):
@@ -249,7 +248,7 @@ def RunTicTacToe():
                 else:
                     setTurn()
                     if isGameOver():
-                        _gameCount = _gameCount + 1
+                        gameCount = gameCount + 1
                         reset()
                     else:
                         _previousSpot = _sense.get_pixel(_defaultX, _defaultY)
@@ -262,3 +261,5 @@ def RunTicTacToe():
                 _x = moveRight(_x, _y)
             elif stick.direction == "down" and stick.action == "pressed":
                 _y = moveDown(_x, _y)
+                    
+    ClearSenseHat()
