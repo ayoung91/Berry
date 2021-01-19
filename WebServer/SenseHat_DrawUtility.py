@@ -104,3 +104,21 @@ def ShowShutdownAnimation():
         _sense.set_pixels(x)        
         sleep(0.2)
         _sense.clear()
+        
+def ShowRaspberry():
+    X = [102, 0, 34] # Raspberry 
+    Y = [0, 77, 0] # Green
+    O = [0, 0, 0] # Clear
+
+    raspberry = [
+    O, Y, Y, O, O, Y, Y, O,
+    O, Y, Y, Y, Y, Y, Y, O,
+    O, O, Y, Y, Y, Y, O, O,
+    O, O, X, X, X, X, O, O,
+    O, X, X, X, X, X, X, O,
+    O, X, X, X, X, X, X, O,
+    O, X, X, X, X, X, X, O,
+    O, O, X, X, X, X, O, O
+    ]
+
+    _sense.set_pixels(raspberry)

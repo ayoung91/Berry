@@ -3,9 +3,17 @@ import subprocess
 from SenseHat_TicTacToe import RunTicTacToe
 from SenseHat_GetTemperature import GetTemperature
 from SenseHat_Clear import ClearSenseHat
-from SenseHat_DrawUtility import ShowShutdownAnimation
+from SenseHat_DrawUtility import ShowShutdownAnimation, ShowRaspberry
 
-app = Flask(__name__)
+class Berry(Flask):
+    def run(self, host='192.168.0.112', port=5000, debug=True):
+        with self.app_context():
+            ShowRaspberry()
+        super(Berry, self).run(host=host, port=port, debug=debug)
+
+app = Berry(__name__)
+app.run()
+
 _numGames = 0
 
 def restart():
@@ -45,9 +53,6 @@ def numGames():
       'title' : 'Berry'
     }
     return render_template('index.html', **templateData)
-
-if __name__ == "__main__":
-   app.run(host='192.168.0.112', port=5000, debug=True)
    
    
    
