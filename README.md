@@ -5,6 +5,8 @@ This is my fun little hobby project called Berry. Its a raspberry pi connected w
 - Get the temperature (with CPU heat offset), displays the temperature in fahrenheit. If the temperature is colder than 32 degrees, a snowflake is displayed. If its hotter than 90 degrees a flame is displaye. Else, a smiley face.
 - A lot more intersting stuff to come!
 
+This is a headless pi, so you don't need a monitor. You can use your phone as long as the IP address and port number in the main.py matches your phone and pi.
+The main.py runs a Flask web server. So the calls from the index.html file call the methods with the matching route.
 This program runs automatically on startup on a service called berry.service. It needs to be added to the etc/systemd/system folder (with sudo privaleges)
 
 I am currently attempting safely shutdown the pi if there is a voltage change (either too high or too low). The power bank I am using (Viros 10,000 mAh) alerts the pi when the power is throttles (changing while also powering). I am still looking into seeing if the pi is alerted when the power is low --probably not.
