@@ -4,16 +4,11 @@ from SenseHat_TicTacToe import RunTicTacToe
 from SenseHat_GetTemperature import GetTemperature
 from SenseHat_Clear import ClearSenseHat
 from SenseHat_DrawUtility import ShowShutdownAnimation, ShowRaspberry
+from shutdown import ShutdownPi
 
 app = Flask(__name__)
 
 _numGames = 0
-
-def restart():
-    command = "/usr/bin/sudo /sbin/shutdown -r now"
-    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-    output = process.communicate()[0]
-    print(output)
     
 @app.route("/")
 def index():
@@ -27,8 +22,7 @@ def action(activity):
     if activity == "gettemperature":
         GetTemperature()
     elif activity == "shutdown":
-        ShowShutdownAnimation()
-        restart()
+        ShutdownPi()
         
     templateData = {
       'title' : 'Berry'
@@ -51,10 +45,3 @@ if __name__ == "__main__":
     ShowRaspberry()
     app.run(host='192.168.0.112', port=5000, debug=True)
    
-   
-
-
-
-
-
-

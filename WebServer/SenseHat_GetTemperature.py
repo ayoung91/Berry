@@ -21,9 +21,9 @@ def GetTemperature():
     p = _sense.get_pressure()
 
     # calculates the real temperature compesating CPU heating
-    t_corr = t - ((t_cpu-t)/1.5)
+    t_corr = t - ((t_cpu-t)/2.1)
     _temp = t_corr * 1.8 + 32
-    print(_temp)
+    _sense.show_message(str(round(_temp, 1)))
       
     if (_temp < 32):
         ShowSnowFlake()
