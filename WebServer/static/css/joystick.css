@@ -1,0 +1,14 @@
+.joystick-container {
+    display: flex;
+    width: 25%;
+    height: 150px;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middle {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}

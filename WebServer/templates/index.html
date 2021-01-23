@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <head>
+      <link rel="stylesheet" type="text/css" href="../static/css/joystick.css" media="screen" />
       <title>{{ title }}</title>
     </head>
     <body>
@@ -13,5 +14,20 @@
         </form>
         <p><a href="/gettemperature">Get Temperature</a></p>
         <p><a href="/shutdown">Shutdown</a></p>
+        <br />
+        <div class="joystick-container">
+            <div class="top">
+                <button onmousedown="moveForward()" onmouseup="stopMoving()">forward</button>
+            </div>
+            <div class="middle">
+                <button onmousedown="turnLeft()" onmouseup="stopMoving()"">left</button>
+                <button onmousedown="turnRight()" onmouseup="stopMoving()"">right</button>
+            </div>
+            <div class="bottom">
+                <button onmousedown="moveBackward()" onmouseup="stopMoving()"">backward</button>
+            </div>
+        </div>
+        
+        <script src="../static/js/joystick.js" type="text/javascript"></script>
     </body>
 </html>
