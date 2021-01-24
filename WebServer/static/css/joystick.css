@@ -1,7 +1,7 @@
 .joystick-container {
     display: flex;
     width: 25%;
-    height: 150px;
+    height: 300px;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
@@ -11,4 +11,29 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
+}
+
+button {
+    border: none;
+    background: none;
+    outline: none;
+}
+
+button > span {
+    background-image: url('../icons/arrow.svg');
+    height: 60px;
+    width: 60px;
+    display: block;
+}
+
+.arrow-left {
+    transform: rotate(270deg);
+}
+
+.arrow-down {
+    transform: rotate(180deg);
+}
+
+.arrow-right {
+    transform: rotate(90deg);
 }
