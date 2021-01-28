@@ -17,24 +17,31 @@
         <br />
         <div class="joystick-container">
             <div class="top">
-                <button ontouchstart="javascript:moveForward()" ontouchend="javascript:stopMoving()" onmousedown="javascript:moveForward()" onmouseup="javascript:stopMoving()"><span class="arrow-up"></span></button>
+                <button ontouchstart="javascript:move('f')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('f')" onmouseup="javascript:stopMoving()"><span class="arrow-up"></span></button>
             </div>
             <div class="middle">
-                <button onmousedown="turnLeft()" onmouseup="stopMoving()"><span class="arrow-left"></span></button>
-                <button onmousedown="turnRight()" onmouseup="stopMoving()"><span class="arrow-right"></span></button>
+                <button ontouchstart="javascript:move('l')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('l')" onmouseup="javascript:stopMoving()"><span class="arrow-left"></span></button>
+                <button ontouchstart="javascript:move('r')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('r')" onmouseup="javascript:stopMoving()"><span class="arrow-right"></span></button>
             </div>
             <div class="bottom">
-                <button onmousedown="moveBackward()" onmouseup="stopMoving()"><span class="arrow-down"></span></button>
+                <button ontouchstart="javascript:move('b')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('b')" onmouseup="javascript:stopMoving()"><span class="arrow-down"></span></button>
             </div>
         </div>
         
         <script src="../static/js/joystick.js" type="text/javascript"></script>
         <script>
-            function moveForward() {  
-                fetch(`/moveForward`)
+            function move(direction) {  
+                fetch(`/move`, {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify(direction),
+                    cache: "no-cache",
+                    headers: new Headers({"content-type": "application/json"})
+                })
                   .then(function (response) {
                       return response.text();
-                  }).then(function (text) {
+                  })
+                  .then(function (text) {
                       console.log('POST response text:');
                       console.log(text); 
                   });

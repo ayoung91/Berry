@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import subprocess
 import serial
+from time import sleep
 from SenseHat_TicTacToe import RunTicTacToe
 from SenseHat_GetTemperature import GetTemperature
 from SenseHat_Clear import ClearSenseHat
@@ -12,6 +13,7 @@ ser=serial.Serial("/dev/ttyACM0",9600)
 ser.baudrate=9600
     
 _numGames = 0
+_isMoving = True
     
 @app.route("/")
 def index():
@@ -44,29 +46,27 @@ def numGames():
     }
     return render_template('index.html', **templateData)
 
-@app.route("/moveForward", methods=['GET','POST'])
-def moveForward():
-    ser.write(b"Move forward\n")
-    return ser.readline()
-
-@app.route("/turnLeft", methods=['GET','POST'])
-def turnLeft():
-    ser.write(b"Turn left\n")
-    return ser.readline()
-
-@app.route("/turnRight", methods=['GET','POST'])
-def turnRight():
-    ser.write(b"Turn right\n")
-    return ser.readline()
-
-@app.route("/moveBackward", methods=['GET','POST'])
-def moveBackward():
-    ser.write(b"Move backward\n")
+@app.route("/move", methods=['GET','POST'])
+def move():
+    global _isMoving
+    _isMoving = True
+    speed = 255
+    
+    print(request.get_json())
+    direction = request.get_json()
+    while _isMoving:
+        speed = speed + 1        
+        strSpeed = str(speed)
+        message = direction+strSpeed+"\n"
+        ser.write(bytes(message, 'utf-8'))
+        sleep(0.1)
     return ser.readline()
 
 @app.route("/stopMoving", methods=['GET','POST'])
 def stopMoving():
-    ser.write(b"Stop moving\n")
+    global _isMoving
+    _isMoving = False
+    ser.write(b"s\n")
     return ser.readline()
    
 if __name__ == "__main__":

@@ -14,20 +14,29 @@ void loop() {
   if (Serial.available() > 0) {
     String data = Serial.readStringUntil('\n');
 
-    if (data == "Move forward") {
-      leftMotorForward();
-      rightMotorForward();
+    String direction = data.substring(0, 1);
+    int speed = data.substring(1, 4).toInt();
+    if (speed > 255) {
+      speed = 255;
+    }
+    
+    if (direction == "f") {
+      forward(speed);
     }
 
-    else if (data == "Turn left") {
-      rightMotorForward();
+    else if (direction == "l") {
+      left(speed);
     }
 
-    else if (data == "Turn right") {
-      leftMotorForward();
+    else if (direction == "r") {
+      right(speed);
     }
 
-    else if (data == "Stop moving") {
+    else if (direction == "b") {
+      backward(speed);
+    }
+
+    else if (direction == "s") {
       stopMoving();
     }
     
@@ -40,16 +49,36 @@ void stopMoving() {
   digitalWrite(8, HIGH);  //Engage the Brake for Channel B
 }
 
-void leftMotorForward() {
-  //Motor A forward @ half speed
-  digitalWrite(12, HIGH); //Establishes forward direction of Channel A
+void forward(int speed) {
+  //Motor A forward
+  digitalWrite(12, LOW); //Establishes forward direction of Channel A
   digitalWrite(9, LOW);   //Disengage the Brake for Channel A
-  analogWrite(3, 255);   //Spins the motor on Channel A at half speed
-}
-
-void rightMotorForward() {
-  //Motor B forward @ half speed
+  analogWrite(3, speed);   //Spins the motor on Channel A
+  //Motor B forward
   digitalWrite(13, HIGH); //Establishes forward direction of Channel B
   digitalWrite(8, LOW);   //Disengage the Brake for Channel B
-  analogWrite(11, 255);   //Spins the motor on Channel B at half speed
+  analogWrite(11, speed);   //Spins the motor on Channel B
+}
+
+void backward(int speed) {
+  //Motor A backward
+  digitalWrite(12, HIGH); //Establishes forward direction of Channel A
+  digitalWrite(9, LOW);   //Disengage the Brake for Channel A
+  analogWrite(3, speed);   //Spins the motor on Channel A
+  //Motor B backward
+  digitalWrite(13, LOW); //Establishes forward direction of Channel B
+  digitalWrite(8, LOW);   //Disengage the Brake for Channel B
+  analogWrite(11, speed);   //Spins the motor on Channel B
+}
+
+void left(int speed) {
+  digitalWrite(13, HIGH); //Establishes forward direction of Channel B
+  digitalWrite(8, LOW);   //Disengage the Brake for Channel B
+  analogWrite(11, speed);   //Spins the motor on Channel B
+}
+
+void right(int speed) {
+  digitalWrite(12, LOW); //Establishes forward direction of Channel A
+  digitalWrite(9, LOW);   //Disengage the Brake for Channel A
+  analogWrite(3, speed);   //Spins the motor on Channel A
 }
