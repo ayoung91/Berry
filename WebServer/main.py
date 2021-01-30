@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect
-import subprocess
 import serial
 from time import sleep
 from SenseHat_TicTacToe import RunTicTacToe
@@ -27,7 +26,6 @@ def action(activity):
     if activity == "gettemperature":
         GetTemperature()
     elif activity == "shutdown":
-        return redirect('')
         ShutdownPi()
         
     return redirect('')
