@@ -25,10 +25,15 @@ def index():
 def action(activity):
     if activity == "gettemperature":
         GetTemperature()
+    elif activity == "drive":
+        templateData = {
+          'title' : 'Berry'
+        }
+        return render_template('joystick.html', **templateData)
     elif activity == "shutdown":
         ShutdownPi()
         
-    return redirect('')
+    #return redirect('')
 
 @app.route("/tictactoe", methods=['POST'])
 def numGames():
