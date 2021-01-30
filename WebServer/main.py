@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import subprocess
 import serial
 from time import sleep
@@ -27,12 +27,10 @@ def action(activity):
     if activity == "gettemperature":
         GetTemperature()
     elif activity == "shutdown":
+        return redirect('')
         ShutdownPi()
         
-    templateData = {
-      'title' : 'Berry'
-    }
-    return render_template('index.html', **templateData)
+    return redirect('')
 
 @app.route("/tictactoe", methods=['POST'])
 def numGames():
@@ -41,25 +39,22 @@ def numGames():
     _numGames = int(req.get("numGames"))
     RunTicTacToe(_numGames)
     
-    templateData = {
-      'title' : 'Berry'
-    }
-    return render_template('index.html', **templateData)
+    return redirect('')
 
 @app.route("/move", methods=['GET','POST'])
 def move():
     global _isMoving
     _isMoving = True
-    speed = 255
+    speed = 100
     
     print(request.get_json())
     direction = request.get_json()
     while _isMoving:
-        speed = speed + 1        
+        speed = speed + 3        
         strSpeed = str(speed)
         message = direction+strSpeed+"\n"
         ser.write(bytes(message, 'utf-8'))
-        sleep(0.1)
+        sleep(0.5)
     return ser.readline()
 
 @app.route("/stopMoving", methods=['GET','POST'])

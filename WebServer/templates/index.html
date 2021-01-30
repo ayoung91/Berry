@@ -1,6 +1,7 @@
 <!DOCTYPE html>
     <head>
-      <link rel="stylesheet" type="text/css" href="../static/css/joystick.css" media="screen" />
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/joystick.css') }}">
+      <script type="text/javascript" src="{{ url_for('static', filename='js/joystick.js') }}"></script>
       <title>{{ title }}</title>
     </head>
     <body>
@@ -17,75 +18,43 @@
         <br />
         <div class="joystick-container">
             <div class="top">
-                <button ontouchstart="javascript:move('f')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('f')" onmouseup="javascript:stopMoving()"><span class="arrow-up"></span></button>
+                <button ontouchstart="move('f')" ontouchend="stopMoving()" onmousedown="move('f')" onmouseup="stopMoving()"><span class="arrow-up"></span></button>
             </div>
             <div class="middle">
-                <button ontouchstart="javascript:move('l')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('l')" onmouseup="javascript:stopMoving()"><span class="arrow-left"></span></button>
-                <button ontouchstart="javascript:move('r')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('r')" onmouseup="javascript:stopMoving()"><span class="arrow-right"></span></button>
+                <button ontouchstart="move('l')" ontouchend="stopMoving()" onmousedown="move('l')" onmouseup="stopMoving()"><span class="arrow-left"></span></button>
+                <button ontouchstart="move('r')" ontouchend="stopMoving()" onmousedown="move('r')" onmouseup="stopMoving()"><span class="arrow-right"></span></button>
             </div>
             <div class="bottom">
-                <button ontouchstart="javascript:move('b')" ontouchend="javascript:stopMoving()" onmousedown="javascript:move('b')" onmouseup="javascript:stopMoving()"><span class="arrow-down"></span></button>
+                <button ontouchstart="move('b')" ontouchend="stopMoving()" onmousedown="move('b')" onmouseup="stopMoving()"><span class="arrow-down"></span></button>
             </div>
         </div>
-        
-        <script src="../static/js/joystick.js" type="text/javascript"></script>
-        <script>
-            function move(direction) {  
-                fetch(`/move`, {
-                    method: "POST",
-                    credentials: "include",
-                    body: JSON.stringify(direction),
-                    cache: "no-cache",
-                    headers: new Headers({"content-type": "application/json"})
-                })
-                  .then(function (response) {
-                      return response.text();
-                  })
-                  .then(function (text) {
-                      console.log('POST response text:');
-                      console.log(text); 
-                  });
-            }
-
-            function turnLeft() {  
-                fetch(`/turnLeft`)
-                  .then(function (response) {
-                      return response.text();
-                  }).then(function (text) {
-                      console.log('POST response text:');
-                      console.log(text); 
-                  }); 
-            }
-
-            function turnRight() {  
-                fetch(`/turnRight`)
-                  .then(function (response) {
-                      return response.text();
-                  }).then(function (text) {
-                      console.log('POST response text:');
-                      console.log(text); 
-                  }); 
-            }
-
-            function moveBackward() {  
-                fetch(`/moveBackward`)
-                  .then(function (response) {
-                      return response.text();
-                  }).then(function (text) {
-                      console.log('POST response text:');
-                      console.log(text); 
-                  });
-            }
-
-            function stopMoving() {
-                fetch(`/stopMoving`)
-                  .then(function (response) {
-                      return response.text();
-                  }).then(function (text) {
-                      console.log('POST response text:');
-                      console.log(text); 
-                  });
-            }
-        </script>
     </body>
+    <script>
+        function move(direction) {  
+            fetch(`/move`, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(direction),
+                cache: "no-cache",
+                headers: new Headers({"content-type": "application/json"})
+            })
+              .then(function (response) {
+                  return response.text();
+              })
+              .then(function (text) {
+                  console.log('POST response text:');
+                  console.log(text); 
+              });
+        }
+
+        function stopMoving() {
+            fetch(`/stopMoving`)
+              .then(function (response) {
+                  return response.text();
+              }).then(function (text) {
+                  console.log('POST response text:');
+                  console.log(text); 
+              });
+        }
+    </script>
 </html>
