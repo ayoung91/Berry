@@ -19,8 +19,64 @@
         <script>
             function send(x,y,speed,angle){
                 var data = {"x":x,"y":y,"speed":speed,"angle":angle};
-                data = JSON.stringify(data);
-                console.log(data);
+                if (x == 0 && y == 0) {
+                    stopMoving()
+                }
+                var direction = "";
+                var speed = 0;
+                if (y < 0) {
+                    speed = (y * -1).toFixed(0);
+                    if (speed < 100) {
+                        speed = "0" + speed;
+                    }
+                    direction = direction + "f" + speed;
+                } else {
+                    speed = y;
+                    if (speed < 100) {
+                        speed = "0" + speed;
+                    }
+                    direction = direction + "b" + speed;
+                }
+                if (x > 0) {
+                    speed = (x * 1).toFixed(0);
+                    if (speed < 100) {
+                        speed = "0" + speed;
+                    }
+                    direction = direction + "r" + speed;
+                } else {
+                    speed = x * -1;
+                    if (speed < 100) {
+                        speed = "0" + speed;
+                    }
+                    direction = direction + "l" + speed;
+                }
+                move(direction);
+            }
+            function move(direction) {  
+                fetch(`/move`, {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify(direction),
+                    cache: "no-cache",
+                    headers: new Headers({"content-type": "application/json"})
+                })
+                  .then(function (response) {
+                      return response.text();
+                  })
+                  .then(function (text) {
+                      console.log('POST response text:');
+                      console.log(text); 
+                  });
+            }
+
+            function stopMoving() {
+                fetch(`/stopMoving`)
+                  .then(function (response) {
+                      return response.text();
+                  }).then(function (text) {
+                      console.log('POST response text:');
+                      console.log(text); 
+                  });
             }
         </script>
         <script>

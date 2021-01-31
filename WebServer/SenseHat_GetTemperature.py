@@ -1,7 +1,6 @@
 import os
 from time import sleep
-from SenseHat_Clear import ClearSenseHat
-from SenseHat_DrawUtility import ShowSnowFlake, ShowFire, ShowSmile, ShowThinkingAnimation
+from SenseHat_DrawUtility import ShowSnowFlake, ShowFire, ShowSmile, ShowThinkingAnimation, ShowRaspberry
 from sense_hat import SenseHat
 
 def get_cpu_temp():
@@ -35,4 +34,4 @@ def GetTemperature():
         ShowSmile()
         
     sleep(5)
-    ClearSenseHat()
+    ShowRaspberry()

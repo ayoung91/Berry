@@ -10,7 +10,7 @@ from shutdown import ShutdownPi
 app = Flask(__name__)
 ser=serial.Serial("/dev/ttyACM0",9600)
 ser.baudrate=9600
-    
+
 _numGames = 0
 _isMoving = True
     
@@ -33,7 +33,7 @@ def action(activity):
     elif activity == "shutdown":
         ShutdownPi()
         
-    #return redirect('')
+    return redirect('')
 
 @app.route("/tictactoe", methods=['POST'])
 def numGames():

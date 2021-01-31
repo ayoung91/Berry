@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 from time import sleep
-from SenseHat_Clear import ClearSenseHat
+from SenseHat_DrawUtility import ShowRaspberry
 
 _sense = SenseHat()
 _colWhite = [255, 255, 255]
@@ -238,7 +238,7 @@ def RunTicTacToe(numGames):
     
     gameCount = 0
     reset()
-    hackFile = open("hack.txt")
+    
     while True:
         if gameCount >= numGames:
             break
@@ -262,5 +262,4 @@ def RunTicTacToe(numGames):
                 _x = moveRight(_x, _y)
             elif stick.direction == "down" and stick.action == "pressed":
                 _y = moveDown(_x, _y)
-    hackFile.close()       
-    ClearSenseHat()
+    ShowRaspberry()
